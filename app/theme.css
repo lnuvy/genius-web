@@ -1,0 +1,99 @@
+/* flex */
+.flex-1 {
+  flex: 1;
+}
+.flex-2 {
+  flex: 2;
+}
+.flex-3 {
+  flex: 3;
+}
+.flex-4 {
+  flex: 4;
+}
+.flex-5 {
+  flex: 5;
+}
+.flex-6 {
+  flex: 6;
+}
+
+/* font  */
+.f-l {
+  font-weight: "lighter";
+}
+.f-r {
+  font-weight: "normal";
+}
+.f-b {
+  font-weight: "bold";
+}
+.f-eb {
+  font-weight: "bolder";
+}
+
+/* bg */
+.bg-transparent {
+  background-color: transparent;
+}
+
+/* width & height */
+.w-full {
+  width: 100%;
+}
+.h-full {
+  height: 100%;
+}
+
+/* color */
+
+/* button hover */
+.btn-active:active {
+  filter: invert(0.1);
+}
+
+/* border radius */
+.circle {
+  border-radius: 100%;
+}
+
+/* display */
+.none {
+  display: none;
+}
+.block {
+  display: block;
+}
+
+/* color style */
+:root {
+  /* brand color */
+  --brand-primary: #6977e4;
+  --brand-secondary: #8a6fd4;
+  --brand-gradient: linear-gradient(
+    90deg,
+    rgba(105, 119, 228, 1) 0%,
+    rgba(138, 111, 212, 1) 100%
+  );
+  /* grayscale color */
+  --black: #141414;
+  --white: #ffffff;
+  --base-100: #fcfcfc;
+  --base-200: #f8f8f8;
+  --base-300: #efefef;
+  --line-100: #ececec;
+  --line-200: #e4e4e4;
+  /* 한울 - 추가함 */
+  --line-300: #e2e2e2;
+  --icon-basic: #999999;
+  --icon-img: #393939;
+  /* font color */
+  --strong: #141414;
+  --accent: #6977e4;
+  --main: #333333;
+  --normal: #666666;
+  --disabled: #999999;
+  --guide: rgb(153, 153, 153, 0.6);
+  --error: #ff0000;
+  /* ui color style */
+}
