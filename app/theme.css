@@ -68,13 +68,10 @@
 /* color style */
 :root {
   /* brand color */
-  --brand-primary: #6977e4;
-  --brand-secondary: #8a6fd4;
-  --brand-gradient: linear-gradient(
-    90deg,
-    rgba(105, 119, 228, 1) 0%,
-    rgba(138, 111, 212, 1) 100%
-  );
+  --brand-primary: #4c2221;
+  --brand-secondary: #2a150a;
+  --brand-gradient: linear-gradient(90deg, #2a150a, #4c2221, #2a150a);
+
   /* grayscale color */
   --black: #141414;
   --white: #ffffff;
@@ -83,7 +80,6 @@
   --base-300: #efefef;
   --line-100: #ececec;
   --line-200: #e4e4e4;
-  /* 한울 - 추가함 */
   --line-300: #e2e2e2;
   --icon-basic: #999999;
   --icon-img: #393939;
@@ -94,6 +90,6 @@
   --normal: #666666;
   --disabled: #999999;
   --guide: rgb(153, 153, 153, 0.6);
-  --error: #ff0000;
+  --red: #ff0000;
   /* ui color style */
 }

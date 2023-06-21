@@ -1,0 +1,22 @@
+{
+  "component template": {
+    "prefix": "rafcc",
+    "body": [
+      "import React from 'react';",
+      "import styled from 'styled-components';",
+      "",
+      "interface ${1:Name}Props {}",
+      "",
+      "const ${1:Name} = (props: ${1:Name}Props) => {",
+      "const {} = props;",
+      "",
+      "  return <Frame></Frame>;",
+      "};",
+      "",
+      "export default ${1:Name};",
+      "",
+      "const Frame = styled.div``;"
+    ],
+    "description": "solid component"
+  }
+}
