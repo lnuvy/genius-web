@@ -1,10 +1,14 @@
+"use client";
+
 import Image from "next/image";
+import styled from "styled-components";
 
 export default function Home() {
   return (
     <main>
+      <TestDiv>123</TestDiv>
       <div>
-        <p>
+        <p className="color-base-200">
           Get started by editing&nbsp;
           <code>app/page.tsx</code>
         </p>
@@ -86,3 +90,7 @@ export default function Home() {
     </main>
   );
 }
+
+const TestDiv = styled.div`
+  background-color: red;
+`;
