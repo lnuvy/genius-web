@@ -2,7 +2,8 @@ import React from "react";
 import "../theme/theme-v4.css";
 
 interface SunSvgProps {
-  color: "purple" | "green" | "red";
+  // color: "purple" | "green" | "red";
+  color: string;
 }
 
 const SunSvg = (props: SunSvgProps) => {
@@ -12,13 +13,13 @@ const SunSvg = (props: SunSvgProps) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       version="1.1"
-      width="256"
-      height="256"
-      viewBox="0 0 256 256"
+      width="100%"
+      height="100%"
+      viewBox="-4 -4 100 100"
     >
       <g
         // style="stroke: none; stroke-width: 0; stroke-dasharray: none; strokeLinecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;"
-        transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"
+        // transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"
         // stroke={`var(--${color})`}
         fill={`var(--${color})`}
       >

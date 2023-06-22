@@ -13,4 +13,4 @@ const Match = (props: MatchProps) => {
   return <></>;
 };
 
-export default Match;
+export default React.memo(Match);

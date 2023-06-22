@@ -1,12 +1,13 @@
 import { createDynamicContext } from "@/helper/create-dynamic-context";
 import { useState } from "react";
 import { TIME_OF_TURN } from "../constant";
+import { settingBoard } from "../algorithm";
 
 interface GameContext {
   round: number;
   boards: any[]; // any check
-  answers: any[]; // any check
-  isLoading: boolean;
+  // answers: any[]; // any check
+  // isLoading: boolean;
 }
 
 const { ContextProvider, useContext } = createDynamicContext<GameContext>();
@@ -28,8 +29,10 @@ const GameProvider = ({ children }: GameContextProvider) => {
 
   const nextRound = () => setCurrentRound((prev) => prev + 1);
 
+  const boards = settingBoard();
+
   return (
-    <ContextProvider round={currentRound} boards={}>
+    <ContextProvider round={currentRound} boards={boards}>
       {children}
     </ContextProvider>
   );

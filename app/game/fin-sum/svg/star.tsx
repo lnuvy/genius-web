@@ -2,7 +2,8 @@ import React from "react";
 import "../theme/theme-v4.css";
 
 interface StarSvgProps {
-  color: "purple" | "green" | "red";
+  // color: "purple" | "green" | "red";
+  color: string;
 }
 
 const StarSvg = (props: StarSvgProps) => {
@@ -12,9 +13,9 @@ const StarSvg = (props: StarSvgProps) => {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       version="1.1"
-      width="256"
-      height="256"
-      viewBox="0 0 256 256"
+      // width="100%"
+      // height="100%"
+      viewBox="-4 -4 100 100"
     >
       <defs></defs>
       <g>

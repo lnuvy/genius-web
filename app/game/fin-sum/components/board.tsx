@@ -1,23 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 import Block from "./block";
+import { uesGameContext } from "../context/game-context";
 
 interface BoardProps {}
 
 const Board = (props: BoardProps) => {
   const {} = props;
+  const { boards } = uesGameContext();
 
   return (
     <Frame>
-      <Block />
-      <Block />
-      <Block />
-      <Block />
-      <Block />
-      <Block />
-      <Block />
-      <Block />
-      <Block />
+      {boards.map((item, key) => {
+        return <Block key={key} {...item} />;
+      })}
     </Frame>
   );
 };
