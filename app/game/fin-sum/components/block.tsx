@@ -18,8 +18,8 @@ const Block = (props: BlockProps) => {
   return (
     <Frame>
       <Switch>
-        <Match when={false}>123123</Match>
-        <Match when={false}>asdfasdfafsd</Match>
+        <Match when={isGrandFinal}>123123</Match>
+        <Match when={!isGrandFinal}>asdfasdfafsd</Match>
       </Switch>
     </Frame>
   );
@@ -27,4 +27,7 @@ const Block = (props: BlockProps) => {
 
 export default Block;
 
-const Frame = styled.div``;
+const Frame = styled.div`
+  background-color: blue;
+  border: 1px solid #fff;
+`;

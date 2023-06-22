@@ -7,6 +7,8 @@ import StarSvg from "../svg/star";
 import styled from "styled-components";
 import Block from "../components/block";
 import VersionProvider from "../context/version-context";
+import Board from "../components/board";
+import RoundTitle from "../components/round-title";
 
 /**
  * 결! 합! 게임 페이지
@@ -15,10 +17,8 @@ const GamePage = () => {
   return (
     <VersionProvider>
       <Frame>
-        <SunSvg color="red" />
-        <MoonSvg color="red" />
-        <StarSvg color="purple" />
-        <Block />
+        <RoundTitle />
+        <Board />
       </Frame>
     </VersionProvider>
   );
