@@ -1,24 +1,29 @@
 import { createDynamicContext } from "@/helper/create-dynamic-context";
 import { useState } from "react";
 
-interface VersionContext {}
+interface VersionContext {
+  isGrandFinal: boolean;
+  toggleVersion: () => void;
+}
 
 const { ContextProvider, useContext } = createDynamicContext<VersionContext>();
 
-export const useSearchWordContext = useContext;
+export const uesVersionContext = useContext;
 
-interface PriceComparisonSearchContextProvider {
+interface VersionContextProvider {
   children: JSX.Element;
 }
 
-export interface TrackingSearchWordProps {}
+const VersionProvider = ({ children }: VersionContextProvider) => {
+  const [isGrandFinal, setToggle] = useState(true);
 
-const PriceComparisonSearchProvider = ({
-  children,
-}: PriceComparisonSearchContextProvider) => {
-  const [searchWord, setSearchWord] = useState("");
+  const toggleVersion = () => setToggle((prev) => !prev);
 
-  return <ContextProvider>{children}</ContextProvider>;
+  return (
+    <ContextProvider isGrandFinal={isGrandFinal} toggleVersion={toggleVersion}>
+      {children}
+    </ContextProvider>
+  );
 };
 
-export default PriceComparisonSearchProvider;
+export default VersionProvider;

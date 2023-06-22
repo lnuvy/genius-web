@@ -72,6 +72,9 @@
   --brand-secondary: #2a150a;
   --brand-gradient: linear-gradient(90deg, #2a150a, #4c2221, #2a150a);
 
+  --background: #642c35;
+  --background-gradient: linear-gradient(90deg, #320e11, #944c6f);
+
   /* grayscale color */
   --black: #141414;
   --white: #ffffff;
