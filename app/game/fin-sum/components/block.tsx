@@ -5,11 +5,15 @@ import StarSvg from "../svg/star";
 import MoonSvg from "../svg/moon";
 import SunSvg from "../svg/sun";
 import { Match, Switch } from "@/components/utils";
+import { BgsType, ColorsType, ShapeType } from "../algorithm";
+import SunSquare from "./icon/sun-square";
+import MoonTriangle from "./icon/moon-triangle";
+import StarCircle from "./icon/star-circle";
 
 interface BlockProps {
-  shape: string;
-  color: string;
-  bg: string;
+  shape: ShapeType;
+  color: ColorsType;
+  bg: BgsType;
 }
 
 const Block = (props: BlockProps) => {
@@ -17,21 +21,21 @@ const Block = (props: BlockProps) => {
   const { isGrandFinal } = uesVersionContext();
 
   return (
-    <Frame {...props}>
+    <Frame bg={bg.bg}>
       <Switch>
-        <Match when={shape === "star"}>
+        <Match when={shape.id === 1}>
           <IconWrapper>
-            <StarSvg color={color} />
+            <StarCircle colorId={color.id} />
           </IconWrapper>
         </Match>
-        <Match when={shape === "moon"}>
+        <Match when={shape.id === 2}>
           <IconWrapper>
-            <MoonSvg color={color} />
+            <MoonTriangle colorId={color.id} />
           </IconWrapper>
         </Match>
-        <Match when={shape === "sun"}>
+        <Match when={shape.id === 3}>
           <IconWrapper>
-            <SunSvg color={color} />
+            <SunSquare colorId={color.id} />
           </IconWrapper>
         </Match>
       </Switch>
@@ -45,7 +49,7 @@ const Block = (props: BlockProps) => {
 
 export default Block;
 
-const Frame = styled.div<BlockProps>`
+const Frame = styled.div<{ bg: string }>`
   background-color: ${({ bg }) => bg};
   border: 1px solid var(--line-300);
   max-width: calc(100vw / 3);

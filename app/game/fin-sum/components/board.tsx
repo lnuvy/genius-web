@@ -12,6 +12,7 @@ const Board = (props: BoardProps) => {
   return (
     <Frame>
       {boards.map((item, key) => {
+        console.log("item", item);
         return <Block key={key} {...item} />;
       })}
     </Frame>
