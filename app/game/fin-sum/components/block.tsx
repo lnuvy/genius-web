@@ -10,17 +10,21 @@ import SunSquare from "./icon/sun-square";
 import MoonTriangle from "./icon/moon-triangle";
 import StarCircle from "./icon/star-circle";
 import Typo from "@/components/atoms/typo";
+import { useGameContext } from "../context/game-context";
 
 interface BlockProps {
   numbering: number;
   shape: ShapeType;
   color: ColorsType;
   bg: BgsType;
+
+  isSubmit?: boolean;
 }
 
 const Block = (props: BlockProps) => {
-  const { shape, color, bg, numbering } = props;
+  const { shape, color, bg, numbering, isSubmit } = props;
   const { isGrandFinal } = uesVersionContext();
+  const { isBoardTouch } = useGameContext();
 
   return (
     <Frame bg={bg.bg}>

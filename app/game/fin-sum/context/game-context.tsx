@@ -1,5 +1,5 @@
 import { createDynamicContext } from "@/helper/create-dynamic-context";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getAnswers, settingBoard } from "../algorithm";
 
 interface GameContext {
@@ -7,6 +7,8 @@ interface GameContext {
   boards: any[]; // any check
   answers: any[]; // any check
   // isLoading: boolean;
+  isBoardTouch: boolean;
+  toggleSubmitMode: () => void;
 }
 
 const { ContextProvider, useContext } = createDynamicContext<GameContext>();
@@ -22,15 +24,34 @@ interface GameContextProvider {
  */
 const GameProvider = ({ children }: GameContextProvider) => {
   const [currentRound, setCurrentRound] = useState(1);
+  const [boards, setBoards] = useState<any>(null);
+  const [answers, setAnswers] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isInputMode, setIsInputMode] = useState(false);
+
+  // TODO: 보드 초기화 조건 추가
+  useEffect(() => {
+    const getBoard = settingBoard();
+    setBoards(getBoard);
+
+    const getAnswer = getAnswers(getBoard);
+    setAnswers(getAnswer);
+  }, []);
+
+  const toggleSubmitMode = () => setIsInputMode((prev) => !prev);
 
   const nextRound = () => setCurrentRound((prev) => prev + 1);
 
-  const boards = settingBoard();
-  const answers = getAnswers(boards);
+  if (!boards) return <>Loading...</>;
 
   return (
-    <ContextProvider round={currentRound} boards={boards} answers={answers}>
+    <ContextProvider
+      isBoardTouch={isInputMode}
+      toggleSubmitMode={toggleSubmitMode}
+      round={currentRound}
+      boards={boards}
+      answers={answers}
+    >
       {children}
     </ContextProvider>
   );
