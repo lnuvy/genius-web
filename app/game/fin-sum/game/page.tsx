@@ -1,15 +1,16 @@
 "use client";
 
 import React from "react";
-import SunSvg from "../svg/sun";
-import MoonSvg from "../svg/moon";
-import StarSvg from "../svg/star";
 import styled from "styled-components";
-import Block from "../components/block";
 import VersionProvider from "../context/version-context";
 import Board from "../components/board";
 import RoundTitle from "../components/round-title";
 import GameProvider from "../context/game-context";
+import Spacer from "@/components/atoms/spacer";
+import Timer from "../components/timer";
+import ButtonBox from "../components/button-box";
+import TurnProvider from "../context/turn-context";
+import ScoreProvider from "../context/score-context";
 
 /**
  * 결! 합! 게임 페이지
@@ -21,6 +22,18 @@ const GamePage = () => {
         <Frame>
           <RoundTitle />
           <Board />
+          <ScoreProvider>
+            <>
+              <Spacer height={2} />
+              <TurnProvider>
+                <>
+                  {/* <Timer /> */}
+                  <Spacer height={2} />
+                  <ButtonBox />
+                </>
+              </TurnProvider>
+            </>
+          </ScoreProvider>
         </Frame>
       </VersionProvider>
     </GameProvider>

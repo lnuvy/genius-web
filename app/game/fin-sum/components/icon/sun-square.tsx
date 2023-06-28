@@ -11,16 +11,16 @@ const SunSquare = (props: IconsProps) => {
   const { colorId } = props;
   const { isGrandFinal } = uesVersionContext();
 
-  const color = !isGrandFinal
+  const color = isGrandFinal
     ? getColorFromGrandFinal(colorId)
     : getColorFromOne(colorId);
 
   return (
     <Switch>
-      <Match when={!isGrandFinal}>
+      <Match when={isGrandFinal}>
         <SunSvg color={color} />
       </Match>
-      <Match when={isGrandFinal}>
+      <Match when={!isGrandFinal}>
         <Square color={color} />
       </Match>
     </Switch>

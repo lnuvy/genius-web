@@ -11,16 +11,16 @@ const MoonTriangle = (props: IconsProps) => {
   const { colorId } = props;
   const { isGrandFinal } = uesVersionContext();
 
-  const color = !isGrandFinal
+  const color = isGrandFinal
     ? getColorFromGrandFinal(colorId)
     : getColorFromOne(colorId);
 
   return (
     <Switch>
-      <Match when={!isGrandFinal}>
+      <Match when={isGrandFinal}>
         <MoonSvg color={color} />
       </Match>
-      <Match when={isGrandFinal}>
+      <Match when={!isGrandFinal}>
         <Triangle color={color} />
       </Match>
     </Switch>

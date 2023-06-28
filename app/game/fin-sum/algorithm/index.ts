@@ -75,7 +75,6 @@ export const getAnswers = (boards: any) => {
     }
   }
   console.log("answers", answers);
-
   return answers;
 };
 

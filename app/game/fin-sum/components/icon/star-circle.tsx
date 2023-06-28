@@ -14,16 +14,16 @@ const StarCircle = (props: IconsProps) => {
   const { colorId } = props;
   const { isGrandFinal } = uesVersionContext();
 
-  const color = !isGrandFinal
+  const color = isGrandFinal
     ? getColorFromGrandFinal(colorId)
     : getColorFromOne(colorId);
 
   return (
     <Switch>
-      <Match when={!isGrandFinal}>
+      <Match when={isGrandFinal}>
         <StarSvg color={color} />
       </Match>
-      <Match when={isGrandFinal}>
+      <Match when={!isGrandFinal}>
         <Circle color={color} />
       </Match>
     </Switch>

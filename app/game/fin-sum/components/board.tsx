@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import Block from "./block";
-import { uesGameContext } from "../context/game-context";
+import { useGameContext } from "../context/game-context";
 
 interface BoardProps {}
 
 const Board = (props: BoardProps) => {
   const {} = props;
-  const { boards } = uesGameContext();
+  const { boards } = useGameContext();
 
   return (
     <Frame>
