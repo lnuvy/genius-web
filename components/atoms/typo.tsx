@@ -80,13 +80,15 @@ export const cssTypoStyles = css<TypoStyleProps>`
   text-decoration: ${({ textDecoration = "none" }) => textDecoration};
 `;
 
+type UnionTypoProps = TypoStyleProps & TypoProps;
+
 /**
  * 모든 number 단위는 rem 입니다
  * lineHeight / letterSpacing / paddingTop 등 모든 props는 rem 기준
  *
  * 예외) string 을 모두 받을수 있는 margin
  */
-const Typo = (props: any) => {
+const Typo = (props: UnionTypoProps) => {
   if (props.span) return <StyledSpan {...props}>{props.children}</StyledSpan>;
   if (props.h1)
     return <StyledHeader1 {...props}>{props.children}</StyledHeader1>;

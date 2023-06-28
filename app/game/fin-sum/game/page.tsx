@@ -19,22 +19,22 @@ const GamePage = () => {
   return (
     <GameProvider>
       <VersionProvider>
-        <Frame>
-          <RoundTitle />
-          <Board />
-          <ScoreProvider>
-            <>
-              <Spacer height={2} />
-              <TurnProvider>
+        <ScoreProvider>
+          <TurnProvider>
+            <Frame>
+              <RoundTitle />
+              <Board />
+              <>
+                <Spacer height={2} />
                 <>
                   {/* <Timer /> */}
                   <Spacer height={2} />
                   <ButtonBox />
                 </>
-              </TurnProvider>
-            </>
-          </ScoreProvider>
-        </Frame>
+              </>
+            </Frame>
+          </TurnProvider>
+        </ScoreProvider>
       </VersionProvider>
     </GameProvider>
   );

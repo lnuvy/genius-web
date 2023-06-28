@@ -11,6 +11,7 @@ import MoonTriangle from "./icon/moon-triangle";
 import StarCircle from "./icon/star-circle";
 import Typo from "@/components/atoms/typo";
 import { useGameContext } from "../context/game-context";
+import { useTurnContext } from "../context/turn-context";
 
 interface BlockProps {
   numbering: number;
@@ -25,9 +26,14 @@ const Block = (props: BlockProps) => {
   const { shape, color, bg, numbering, isSubmit } = props;
   const { isGrandFinal } = uesVersionContext();
   const { isBoardTouch } = useGameContext();
+  const { setAnswer } = useTurnContext();
 
   return (
-    <Frame bg={bg.bg}>
+    <Frame
+      bg={bg.bg}
+      disabled={!isBoardTouch}
+      onClick={() => setAnswer(numbering)}
+    >
       <Numbering bg={bg.bg}>
         <Typo size={10} letterSpacing="0.5rem" textAlign="center">
           {numbering}
@@ -60,7 +66,7 @@ const Block = (props: BlockProps) => {
 
 export default Block;
 
-const Frame = styled.div<{ bg: string }>`
+const Frame = styled.button<{ bg: string }>`
   position: relative;
   background-color: ${({ bg }) => bg};
   border: 1px solid var(--line-300);

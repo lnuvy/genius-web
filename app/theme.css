@@ -69,7 +69,8 @@
 :root {
   /* brand color */
   --brand-primary: #4c2221;
-  --brand-secondary: #2a150a;
+  --brand-tertiary: #2a150a;
+  --brand-secondary: #3c211d;
   --brand-gradient: linear-gradient(90deg, #2a150a, #4c2221, #2a150a);
 
   --background: #642c35;
@@ -90,7 +91,7 @@
   --strong: #141414;
   --accent: #6977e4;
   --main: #333333;
-  --normal: #666666;
+  --normal: #c0ab89;
   --disabled: #999999;
   --guide: rgb(153, 153, 153, 0.6);
   --red: #ff0000;

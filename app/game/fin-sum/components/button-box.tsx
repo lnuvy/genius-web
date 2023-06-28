@@ -3,6 +3,7 @@ import Typo from "@/components/atoms/typo";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useGameContext } from "../context/game-context";
+import UserInput from "./user-input";
 
 interface ButtonBoxProps {}
 
@@ -14,21 +15,18 @@ const ButtonBox = (props: ButtonBoxProps) => {
 
   const { isBoardTouch, toggleSubmitMode } = useGameContext();
 
-  const onClick결 = () => setSubmitMode("결");
-  const onClick합 = () => toggleSubmitMode();
-
   if (isBoardTouch) {
-    return <></>;
+    return <UserInput />;
   }
 
   return (
     <Frame>
-      <CustomButton onClick={onClick결}>
+      <CustomButton onClick={() => {}}>
         <Typo fontWeight="Bold" size={22}>
           결
         </Typo>
       </CustomButton>
-      <CustomButton onClick={onClick합}>
+      <CustomButton onClick={toggleSubmitMode}>
         <Typo fontWeight="Bold" size={22}>
           합
         </Typo>
@@ -47,7 +45,7 @@ const Frame = styled.div`
 `;
 
 const CustomButton = styled.button`
-  border: 0;
+  /* border: 0; */
   width: 25vw;
   height: 25vw;
   background-color: #fff;

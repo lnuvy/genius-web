@@ -2,6 +2,7 @@ export type ShapeType = { id: number; shape1: string; shape2: string };
 export type ColorsType = { id: number; color1: string; color2: string };
 export type BgsType = { id: number; bg: string };
 
+// 결!합! 사용되는 상수
 const shapes = [
   { id: 1, shape1: "star", shape2: "circle" },
   { id: 2, shape1: "moon", shape2: "triangle" },
@@ -19,6 +20,11 @@ const bgs = [
   { id: 3, bg: "black" },
 ];
 
+/** ------------------------------------------------------------------------------
+ * 
+ * 보드를 만들어내는 함수
+ * 
+ ------------------------------------------------------------------------------ */
 const getRandomElement = <T>(array: T[]) => {
   const randomIndex = Math.floor(Math.random() * array.length);
   return array[randomIndex];
@@ -56,11 +62,21 @@ export const settingBoard = () => {
 
 type IsMeetCondition = (props: string, i: any, j: any, k: any) => boolean;
 
+/** ------------------------------------------------------------------------------
+ * 
+ * 합! 의 조건이 되지 판단하는 함수
+ * 
+ ------------------------------------------------------------------------------ */
 const isMeetCondition: IsMeetCondition = (props, i, j, k) => {
   const sum = i[props].id + j[props].id + k[props].id;
   return sum % 3 === 0;
 };
 
+/** ------------------------------------------------------------------------------
+ * 
+ * 합! 정답들 미리 구하는 함수
+ * 
+ ------------------------------------------------------------------------------ */
 export const getAnswers = (boards: any) => {
   const answers = [];
 
@@ -78,6 +94,11 @@ export const getAnswers = (boards: any) => {
   return answers;
 };
 
+/** ------------------------------------------------------------------------------
+ * 
+ * 블록의 Theme
+ * 
+ ------------------------------------------------------------------------------ */
 export const getColorFromGrandFinal = (colorId: number) => {
   switch (colorId) {
     case 1:
@@ -102,4 +123,28 @@ export const getColorFromOne = (colorId: number) => {
     default:
       return "";
   }
+};
+
+type CompareAnswer = (
+  answer: number[][],
+  userInput: number[]
+) => [boolean, number];
+/** ------------------------------------------------------------------------------
+ * 
+ * user의 인풋값이 정답인지 판단하기
+ * @returns [정답/오답 여부(boolean), 정답리스트의 index]
+ * 
+ ------------------------------------------------------------------------------ */
+export const compareAnswer: CompareAnswer = (answer, userInput) => {
+  const user = userInput.sort().join();
+
+  for (let i = 0; i < answer.length; i++) {
+    const sort = answer[i].sort().join();
+
+    if (sort === user) {
+      return [true, i];
+    }
+  }
+
+  return [false, -1];
 };
