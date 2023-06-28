@@ -9,19 +9,26 @@ import { BgsType, ColorsType, ShapeType } from "../algorithm";
 import SunSquare from "./icon/sun-square";
 import MoonTriangle from "./icon/moon-triangle";
 import StarCircle from "./icon/star-circle";
+import Typo from "@/components/atoms/typo";
 
 interface BlockProps {
+  numbering: number;
   shape: ShapeType;
   color: ColorsType;
   bg: BgsType;
 }
 
 const Block = (props: BlockProps) => {
-  const { shape, color, bg } = props;
+  const { shape, color, bg, numbering } = props;
   const { isGrandFinal } = uesVersionContext();
 
   return (
     <Frame bg={bg.bg}>
+      <Numbering bg={bg.bg}>
+        <Typo size={10} letterSpacing="0.5rem" textAlign="center">
+          {numbering}
+        </Typo>
+      </Numbering>
       <Switch>
         <Match when={shape.id === 1}>
           <IconWrapper>
@@ -50,17 +57,25 @@ const Block = (props: BlockProps) => {
 export default Block;
 
 const Frame = styled.div<{ bg: string }>`
+  position: relative;
   background-color: ${({ bg }) => bg};
   border: 1px solid var(--line-300);
   max-width: calc(100vw / 3);
   max-height: calc(100vw / 3);
 `;
 
+const Numbering = styled.div<{ bg: string }>`
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-right: 1px solid var(--icon-basic);
+  border-bottom: 1px solid var(--icon-basic);
+  color: ${({ bg }) => (bg === "black" ? "#fff" : "#000")};
+  font-family: sans-serif;
+`;
+
 const IconWrapper = styled.div`
-  width: 100%;
+  width: 75%;
   height: 100%;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 0 auto;
 `;

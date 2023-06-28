@@ -1,5 +1,5 @@
 import React from "react";
-import "../theme/theme-v4.css";
+import "../theme/theme-fin-sum.css";
 
 interface SunSvgProps {
   // color: "purple" | "green" | "red";

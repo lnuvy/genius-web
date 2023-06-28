@@ -11,9 +11,9 @@ const Board = (props: BoardProps) => {
 
   return (
     <Frame>
-      {boards.map((item, key) => {
+      {boards.map((item, index) => {
         console.log("item", item);
-        return <Block key={key} {...item} />;
+        return <Block key={index} {...item} numbering={index + 1} />;
       })}
     </Frame>
   );
