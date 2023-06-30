@@ -7,17 +7,23 @@ import ButtonBox from "./button-box";
 import { useGameContext } from "../context/game-context";
 import Switch from "@/components/utils/switch";
 import Match from "@/components/utils/match";
+import Score from "./score";
+import History from "./history";
 
 interface TemplateProps {}
 
 const Template = (props: TemplateProps) => {
   const {} = props;
 
-  const { boards, roundStart, waitingTime } = useGameContext();
+  const { roundStart, waitingTime } = useGameContext();
 
   return (
     <Frame>
       <Switch>
+        <Match when={!roundStart}>
+          <>{waitingTime} 초 뒤 시작합니다</>
+        </Match>
+
         <Match when={roundStart}>
           <RoundTitle />
           <Board />
@@ -25,9 +31,8 @@ const Template = (props: TemplateProps) => {
           {/* <Timer /> */}
           <Spacer height={2} />
           <ButtonBox />
-        </Match>
-        <Match when={!roundStart}>
-          <>{waitingTime} 초 뒤 시작합니다</>
+          <History />
+          <Score />
         </Match>
       </Switch>
     </Frame>
