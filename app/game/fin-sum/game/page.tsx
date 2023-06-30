@@ -13,22 +13,16 @@ import Template from "../components/template";
  */
 const GamePage = () => {
   return (
-    <GameProvider>
-      <VersionProvider>
-        <ScoreProvider>
+    <ScoreProvider>
+      <GameProvider>
+        <VersionProvider>
           <TurnProvider>
             <Template />
           </TurnProvider>
-        </ScoreProvider>
-      </VersionProvider>
-    </GameProvider>
+        </VersionProvider>
+      </GameProvider>
+    </ScoreProvider>
   );
 };
 
 export default GamePage;
-
-const Frame = styled.div`
-  background: var(--background);
-  min-width: 100vw;
-  min-height: 100vh;
-`;

@@ -1,5 +1,3 @@
-import Match from "./match";
-import Show from "./show";
-import Switch from "./switch";
-
-export { Match, Show, Switch };
+export { default as Match } from "./match";
+export { default as Show } from "./show";
+export { default as Switch } from "./switch";

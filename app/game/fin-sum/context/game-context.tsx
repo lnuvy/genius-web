@@ -1,17 +1,20 @@
 import { createDynamicContext } from "@/helper/create-dynamic-context";
 import { useEffect, useState } from "react";
-import { getAnswers, settingBoard } from "../algorithm";
-import { ROUND_START_TIME } from "../constant";
+import { compareAnswer, getAnswers, settingBoard } from "../algorithm";
+import { ROUND_START_TIME, TIME_OF_RESULT } from "../constant";
+import { useScoreContext } from "./score-context";
 
 interface GameContext {
-  roundStart: boolean;
+  isStart: boolean;
+  isGuide: boolean;
   waitingTime: number;
   round: number;
   boards: any[]; // any check
   answers: any[]; // any check
-  // isLoading: boolean;
+  alreadyAnswers: any[]; // any check
   isBoardTouch: boolean;
   toggleSubmitMode: () => void;
+  checkAnswer: (userAnswer: number[]) => void;
 }
 
 const { ContextProvider, useContext } = createDynamicContext<GameContext>();
@@ -26,13 +29,19 @@ interface GameContextProvider {
  *
  */
 const GameProvider = ({ children }: GameContextProvider) => {
+  const { changeScore } = useScoreContext();
+
   // 보드 보여주기 전 시간
-  const [roundStart, setRoundStart] = useState(false);
+  const [isStart, setIsStart] = useState(false);
   const [waitingTime, setWaitingTime] = useState(ROUND_START_TIME);
+
+  // 정/오답 안내
+  const [isGuide, setIsGuide] = useState(false);
 
   const [currentRound, setCurrentRound] = useState(1);
   const [boards, setBoards] = useState<any>(null);
   const [answers, setAnswers] = useState<any>([]);
+  const [alreadyAnswers, setAlreadyAnswers] = useState<any>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isInputMode, setIsInputMode] = useState(false);
 
@@ -57,27 +66,77 @@ const GameProvider = ({ children }: GameContextProvider) => {
       setWaitingTime((prev) => {
         // 0이되면 시작
         if (prev === 0) {
-          setRoundStart(true);
+          roundStart();
         }
         return prev - 1;
       });
     }, 1000);
     return () => {
+      console.log("clear!");
       clearInterval(intervalId);
     };
   }, []);
 
-  if (!boards) return <>Loading...</>;
+  const roundStart = () => {
+    setIsStart(true);
+  };
+
+  const roundEnd = () => {};
+
+  // 정/오답인지 확인하기
+  const checkAnswer = (userAnswer: number[]) => {
+    // 안내모드
+    setIsGuide(true);
+
+    setTimeout(() => {
+      setIsGuide(false);
+      setIsInputMode(false);
+    }, TIME_OF_RESULT);
+
+    // 비교
+    const [isAnswer, index] = compareAnswer(answers, userAnswer);
+
+    // 정답
+    if (isAnswer) {
+      correct합(index);
+    }
+    // 오답
+    else wrong합();
+  };
+
+  useEffect(() => {
+    console.log("isGuide", isGuide);
+  }, [isGuide]);
+
+  // 합! 정답
+  const correct합 = (answersIndex: number) => {
+    changeScore(1);
+    setAlreadyAnswers((prev: any) => [...prev, answers[answersIndex]]);
+    setAnswers((prev: any) => {
+      const updatedAnswers = [...prev];
+      updatedAnswers.splice(answersIndex, 1);
+      return updatedAnswers;
+    });
+  };
+
+  const wrong합 = () => {
+    changeScore(-1);
+  };
+
+  // if (!boards) return <>Loading...</>;
 
   return (
     <ContextProvider
-      roundStart={roundStart}
+      isStart={isStart}
+      isGuide={isGuide}
       waitingTime={waitingTime}
       isBoardTouch={isInputMode}
       toggleSubmitMode={toggleSubmitMode}
       round={currentRound}
       boards={boards}
       answers={answers}
+      alreadyAnswers={[]}
+      checkAnswer={checkAnswer}
     >
       {children}
     </ContextProvider>

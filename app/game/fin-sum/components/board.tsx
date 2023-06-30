@@ -9,14 +9,9 @@ const Board = (props: BoardProps) => {
   const {} = props;
   const { boards, roundStart, waitingTime } = useGameContext();
 
-  if (!roundStart) {
-    return <>{waitingTime} 초 뒤 시작합니다</>;
-  }
-
   return (
     <Frame>
       {boards.map((item, index) => {
-        console.log("item", item);
         return <Block key={index} {...item} numbering={index + 1} />;
       })}
     </Frame>
