@@ -29,7 +29,7 @@ const TurnProvider = ({ children }: TurnContextProvider) => {
   const [timer, setTimer] = useState(TIME_OF_TURN);
   const [userAnswer, setUserAnswer] = useState<number[]>([]);
 
-  // 타이머
+  // 턴 타이머
   useEffect(() => {
     const intervalId = setInterval(() => {
       setTimer((prev) => {

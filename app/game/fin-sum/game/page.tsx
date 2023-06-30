@@ -3,14 +3,10 @@
 import React from "react";
 import styled from "styled-components";
 import VersionProvider from "../context/version-context";
-import Board from "../components/board";
-import RoundTitle from "../components/round-title";
 import GameProvider from "../context/game-context";
-import Spacer from "@/components/atoms/spacer";
-import Timer from "../components/timer";
-import ButtonBox from "../components/button-box";
 import TurnProvider from "../context/turn-context";
 import ScoreProvider from "../context/score-context";
+import Template from "../components/template";
 
 /**
  * 결! 합! 게임 페이지
@@ -21,18 +17,7 @@ const GamePage = () => {
       <VersionProvider>
         <ScoreProvider>
           <TurnProvider>
-            <Frame>
-              <RoundTitle />
-              <Board />
-              <>
-                <Spacer height={2} />
-                <>
-                  {/* <Timer /> */}
-                  <Spacer height={2} />
-                  <ButtonBox />
-                </>
-              </>
-            </Frame>
+            <Template />
           </TurnProvider>
         </ScoreProvider>
       </VersionProvider>

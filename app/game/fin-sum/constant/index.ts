@@ -1,3 +1,6 @@
+// 각 라운드 시작 전 대기 시간
+export const ROUND_START_TIME = 3;
+
 // 한턴당 시간
 export const TIME_OF_TURN = 10;
 

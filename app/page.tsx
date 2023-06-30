@@ -21,7 +21,3 @@ export default function Home() {
     </main>
   );
 }
-
-const TestDiv = styled.div`
-  background-color: red;
-`;

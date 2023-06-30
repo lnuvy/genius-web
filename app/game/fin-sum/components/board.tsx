@@ -7,7 +7,11 @@ interface BoardProps {}
 
 const Board = (props: BoardProps) => {
   const {} = props;
-  const { boards } = useGameContext();
+  const { boards, roundStart, waitingTime } = useGameContext();
+
+  if (!roundStart) {
+    return <>{waitingTime} 초 뒤 시작합니다</>;
+  }
 
   return (
     <Frame>
