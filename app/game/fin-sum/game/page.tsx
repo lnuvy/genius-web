@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import styled from "styled-components";
 import VersionProvider from "../context/version-context";
 import GameProvider from "../context/game-context";
 import TurnProvider from "../context/turn-context";

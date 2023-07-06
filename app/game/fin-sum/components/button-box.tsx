@@ -11,9 +11,8 @@ type SubmitModeType = "결" | "합" | false;
 
 const ButtonBox = (props: ButtonBoxProps) => {
   const {} = props;
-  const [isSubmitMode, setSubmitMode] = useState<SubmitModeType>(false);
 
-  const { isBoardTouch, toggleSubmitMode } = useGameContext();
+  const { isBoardTouch, toggleSubmitMode, onClickKiyul } = useGameContext();
 
   if (isBoardTouch) {
     return <UserInput />;
@@ -21,7 +20,7 @@ const ButtonBox = (props: ButtonBoxProps) => {
 
   return (
     <Frame>
-      <CustomButton onClick={() => {}}>
+      <CustomButton onClick={onClickKiyul}>
         <Typo fontWeight="Bold" size={22}>
           결
         </Typo>

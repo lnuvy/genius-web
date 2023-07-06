@@ -5,6 +5,7 @@ import "./theme.css";
 import localFont from "next/font/local";
 import "@/public/static/fonts/fonts.css";
 import { Reset } from "styled-reset";
+import { ToastContainer } from "react-toastify";
 
 // export const metadata = {
 //   title: "Create Next App",
@@ -25,6 +26,7 @@ export default function RootLayout({
   return (
     <html lang="ko" className="shilla">
       <Reset />
+      <ToastContainer />
       <body>{children}</body>
     </html>
   );

@@ -9,6 +9,7 @@ import Score from "./score";
 import History from "./history";
 import StartTimer from "@/components/molecules/start-timer";
 import { Match, Switch } from "@/components/utils";
+import Timer from "./timer";
 
 interface TemplateProps {}
 
@@ -29,7 +30,7 @@ const Template = (props: TemplateProps) => {
           <RoundTitle />
           <Board />
           <Spacer height={2} />
-          {/* <Timer /> */}
+          <Timer />
           <Spacer height={2} />
           <ButtonBox />
           <History />

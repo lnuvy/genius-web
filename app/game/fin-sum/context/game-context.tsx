@@ -6,7 +6,7 @@ import { useScoreContext } from "./score-context";
 
 interface GameContext {
   isStart: boolean;
-  isGuide: boolean;
+  isGuide: IsGuideType;
   waitingTime: number;
   round: number;
   boards: any[]; // any check
@@ -15,6 +15,8 @@ interface GameContext {
   isBoardTouch: boolean;
   toggleSubmitMode: () => void;
   checkAnswer: (userAnswer: number[]) => void;
+  guideModeToggle: (msg: IsGuideType) => void;
+  onClickKiyul: () => void;
 }
 
 const { ContextProvider, useContext } = createDynamicContext<GameContext>();
@@ -24,6 +26,8 @@ export const useGameContext = useContext;
 interface GameContextProvider {
   children: JSX.Element;
 }
+
+type IsGuideType = "" | "시간초과" | "정답" | "오답";
 
 /**
  *
@@ -35,8 +39,8 @@ const GameProvider = ({ children }: GameContextProvider) => {
   const [isStart, setIsStart] = useState(false);
   const [waitingTime, setWaitingTime] = useState(ROUND_START_TIME);
 
-  // 정/오답 안내
-  const [isGuide, setIsGuide] = useState(false);
+  // 정/오답, 시간초과 안내
+  const [isGuide, setIsGuide] = useState<IsGuideType>("");
 
   const [currentRound, setCurrentRound] = useState(1);
   const [boards, setBoards] = useState<any>(null);
@@ -47,12 +51,12 @@ const GameProvider = ({ children }: GameContextProvider) => {
 
   // TODO: 보드 초기화 조건 추가
   useEffect(() => {
+    console.log("isStart", isStart);
     const getBoard = settingBoard();
     setBoards(getBoard);
-
     const getAnswer = getAnswers(getBoard);
     setAnswers(getAnswer);
-  }, []);
+  }, [isStart]);
 
   const toggleSubmitMode = () => setIsInputMode((prev) => !prev);
 
@@ -72,10 +76,19 @@ const GameProvider = ({ children }: GameContextProvider) => {
       });
     }, 1000);
     return () => {
-      console.log("clear!");
       clearInterval(intervalId);
     };
-  }, []);
+  }, [isStart]);
+
+  const guideModeToggle = (msg: IsGuideType) => {
+    // 안내모드
+    setIsGuide(msg);
+
+    setTimeout(() => {
+      setIsGuide("");
+      setIsInputMode(false);
+    }, TIME_OF_RESULT);
+  };
 
   const roundStart = () => {
     setIsStart(true);
@@ -83,30 +96,36 @@ const GameProvider = ({ children }: GameContextProvider) => {
 
   const roundEnd = () => {};
 
-  // 정/오답인지 확인하기
+  // 합 정/오답인지 확인하기
   const checkAnswer = (userAnswer: number[]) => {
-    // 안내모드
-    setIsGuide(true);
-
-    setTimeout(() => {
-      setIsGuide(false);
-      setIsInputMode(false);
-    }, TIME_OF_RESULT);
-
     // 비교
     const [isAnswer, index] = compareAnswer(answers, userAnswer);
 
     // 정답
-    if (isAnswer) {
-      correct합(index);
-    }
+    if (isAnswer) correct합(index);
     // 오답
-    else wrong합();
+    else wrong결합();
   };
 
-  useEffect(() => {
-    console.log("isGuide", isGuide);
-  }, [isGuide]);
+  // 결 정/오답 확인
+  const onClickKiyul = () => {
+    // 오답
+    if (answers.length) wrong결합();
+    else correct결();
+  };
+
+  const roundInit = () => {
+    setIsStart(false);
+  };
+
+  // 결! 정답
+  const correct결 = () => {
+    changeScore(3);
+    guideModeToggle("정답");
+
+    setWaitingTime(ROUND_START_TIME);
+    setTimeout(() => roundInit(), ROUND_START_TIME);
+  };
 
   // 합! 정답
   const correct합 = (answersIndex: number) => {
@@ -117,9 +136,11 @@ const GameProvider = ({ children }: GameContextProvider) => {
       updatedAnswers.splice(answersIndex, 1);
       return updatedAnswers;
     });
+    guideModeToggle("정답");
   };
 
-  const wrong합 = () => {
+  const wrong결합 = () => {
+    guideModeToggle("오답");
     changeScore(-1);
   };
 
@@ -137,6 +158,8 @@ const GameProvider = ({ children }: GameContextProvider) => {
       answers={answers}
       alreadyAnswers={[]}
       checkAnswer={checkAnswer}
+      guideModeToggle={guideModeToggle}
+      onClickKiyul={onClickKiyul}
     >
       {children}
     </ContextProvider>

@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { TIME_OF_RESULT, TIME_OF_TURN } from "../constant";
 import { useScoreContext } from "./score-context";
 import { useGameContext } from "./game-context";
-import { compareAnswer } from "../algorithm";
 
 interface TurnContext {
   time: number;
@@ -27,27 +26,33 @@ interface TurnContextProvider {
  */
 const TurnProvider = ({ children }: TurnContextProvider) => {
   const { score, changeScore } = useScoreContext();
-  const { answers, toggleSubmitMode, checkAnswer, isGuide } = useGameContext();
+  const { answers, toggleSubmitMode, checkAnswer, isGuide, guideModeToggle } =
+    useGameContext();
 
   const [timer, setTimer] = useState(TIME_OF_TURN);
   const [userAnswer, setUserAnswer] = useState<number[]>([]);
 
-  // // 턴 타이머
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     setTimer((prev) => {
-  //       // TIME OVER
-  //       if (prev === 0) {
-  //         changeScore(-1);
-  //         // alert("!");
-  //       }
-  //       return prev - 1;
-  //     });
-  //   }, 1000);
-  //   return () => {
-  //     clearInterval(intervalId);
-  //   };
-  // }, [changeScore]);
+  // 턴 타이머
+  useEffect(() => {
+    if (isGuide) {
+      setTimer(() => TIME_OF_TURN);
+    }
+
+    const intervalId = setInterval(() => {
+      setTimer((prev) => {
+        // TIME OVER
+        if (prev === 0) {
+          changeScore(-1);
+          setTimer(() => TIME_OF_RESULT / 1000 + TIME_OF_TURN);
+          guideModeToggle("시간초과");
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [changeScore, isGuide]);
 
   const nextTurn = () => {
     setTimer(() => TIME_OF_TURN);
@@ -62,8 +67,12 @@ const TurnProvider = ({ children }: TurnContextProvider) => {
   };
 
   useEffect(() => {
-    if (userAnswer.length === 3) {
+    if (userAnswer.length === 3 && !isGuide) {
       checkAnswer(userAnswer);
+    }
+
+    if (isGuide) {
+      setUserAnswer([]);
     }
   }, [checkAnswer, userAnswer, isGuide]);
 
